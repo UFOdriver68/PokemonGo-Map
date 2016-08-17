@@ -620,7 +620,7 @@ var mapData = {
   spawnpoints: {}
 }
 var gymTypes = ['Uncontested', 'Mystic', 'Valor', 'Instinct']
-var audio = new Audio('static/sounds/ding.mp3')
+//var audio = new Audio('static/sounds/ding.mp3')
 var pokemonSprites = {
   normal: {
     columns: 12,
@@ -1163,7 +1163,7 @@ function setupPokemonMarker (item, skipNotification, isBounceDisabled) {
   if (notifiedPokemon.indexOf(item['pokemon_id']) > -1 || notifiedRarity.indexOf(item['pokemon_rarity']) > -1) {
     if (!skipNotification) {
       if (Store.get('playSound')) {
-        audio.play()
+        //audio.play()
       }
       sendNotification('A wild ' + item['pokemon_name'] + ' appeared!', 'Click to load map', 'static/icons/' + item['pokemon_id'] + '.png', item['latitude'], item['longitude'])
     }
