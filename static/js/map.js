@@ -814,7 +814,19 @@ function removePokemonMarker (encounterId) { // eslint-disable-line no-unused-va
   mapData.pokemons[encounterId].hidden = true
 }
 
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 function initMap () { // eslint-disable-line no-unused-vars
+  var url_lat = getParameterByName('lat');
+  var url_lng = getParameterByName('lng');
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: centerLat,
@@ -883,7 +895,12 @@ function initMap () { // eslint-disable-line no-unused-vars
   map.setMapTypeId(Store.get('map_style'))
   google.maps.event.addListener(map, 'idle', updateMap)
 
-  marker = createSearchMarker()
+  marker = createSearchMarker();
+
+  if (url_lat) {
+	  centerMap(url_lat, url_lng, 16);
+	  marker.setMap(null);
+  }
 
   addMyLocationButton()
   initSidebar()
